@@ -7,6 +7,8 @@ import sys
 import uuid
 import configparser
 import re
+import hashlib
+import os
 
 
 # 2017.2.13 #19006
@@ -25,14 +27,69 @@ def check_platform():
 # md5 函数
 # 2015.5.27 create by david.yi
 # 2015.6.6 edit, 转移到这里，作为基本工具函数
+# 2018.6.8 edit by chunying.jia, 添加文件、大文件MD5的获取功能
 # 输入: s: str 字符串
 # 输出: 经过md5计算的值
-def get_md5(s):
-    import hashlib
+def get_md5(string, mode='S'):
+    """
+    获取MD5方法
+    :param string: 待hash的字符串，或者是文件的路径，
+                如果是文件路径的时候需要设置mode='F'
+    :param mode: 模式，'S', 获取字符串的MD5
+                'F', 传入的str需要是文件的路径
+                'B', 大文件的MD5,传入的str需要是文件的路径
+    :return: 32位小写MD5值
+    """
+    if mode.upper() == 'S':
+        return _get_str_md5(string)
+    if mode.upper() == 'F':
+        return _get_file_md5(string)
+    if mode.upper() == 'B':
+        return _get_big_file_md5(string)
 
-    m = hashlib.md5()
-    m.update(s.encode('utf-8'))
-    return m.hexdigest()
+
+def _get_str_md5(string):
+    """
+    获取一个字符串的MD5值
+    :param string 待hash的字符串
+    :return: 32位小写MD5值
+    """
+    m0 = hashlib.md5()
+    m0.update(string.encode('utf-8'))
+    result = m0.hexdigest()
+    return result
+
+
+def _get_file_md5(file_path):
+    """
+    获取一个文件的MD5值
+    :param file_path 待hash的文件路径
+    :return: 32位小写MD5值
+    """
+    with open(file_path, 'rb') as f:
+        md5obj = hashlib.md5()
+        md5obj.update(f.read())
+        hash_o = md5obj.hexdigest()
+        return hash_o
+
+
+def _get_big_file_md5(file_name):
+    """
+    获取一个较大文件的MD5值
+    :param file_name 待hash的文件路径
+    :return: 32位小写MD5值
+    """
+    if not os.path.isfile(file_name):
+        return
+    hash_o = hashlib.md5()
+    f = open(file_name, 'rb')
+    while True:
+        b = f.read(8096)
+        if not b:
+            break
+        hash_o.update(b)
+    f.close()
+    return hash_o.hexdigest()
 
 
 # 对象序列化
