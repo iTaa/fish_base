@@ -1,13 +1,32 @@
-fish_common 特性列表
+##fish_common 特性列表
 
-last update: 2018.2.1 
+last update: 2018.5.8
 
-####v1.0.10
+#### v1.0.11
+
+* 19011，从19011开始编号，ok
+* 19015，common conf_as_dict() 增加 docstring 说明， ok
+* 19016，开始测试使用 sphinx 来组织 api 说明文档，ok
+* 19017，将 conf_as_dict() 说明加入到 doc 中，ok
+* 19018，`__init__.py 中的 get_ver() 返回版本号功能简化，ok
+* 19019，common class SingleTon() 增加 docstring 说明，ok
+* 19020，csv csv_file_to_list() 增加 docstring 说明，ok
+* 19021，common 重新声明为 fish_common, csv 重新生命为 fish_csv, 所有包带 fish 前缀，ok
+* 19022，sphinx doc 的 theme 修改为 rtd theme，https://sphinx-rtd-theme.readthedocs.io/en/latest/ , ok
+* 19023，logger set_log_file() 增加 docstring 说明，ok
+* 19024，fish_file 函数加入 docstring 说明，ok
+* 19025, common, 去除 get_md5()函数，ok
+* 19026, common, 增加 class GetMD5，ok  
+https://stackoverflow.com/questions/1131220/get-md5-hash-of-big-files-in-python?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+---
+
+#### v1.0.10
 
 * 19006，增加，get_time_uuid(), 获得带时间戳的流水号；ok
 * 19007，增加，if_any_elements_is_space(),判断参数列表是否存在不合法的参数，如果存在 None 或空字符串或空格字符串，
     则返回True, 否则返回False；ok
-* 19008，common，增加 conf_as_dict(),读入配置文件，返回根据配置文件内容生成的字典类型变量; 
+* 19008，common，增加 conf_as_dict(),读入配置文件，返回根据配置文件内容生成的字典类型变量; ok
 * 11001，整体结构和开发方法调整；
 * 11002, 增加 csv 功能模块，增加函数 csv_file_to_list(); ok
 * 11003, fish_file 模块修改为 file，目前向下兼容保留 fish_file; ok
@@ -36,6 +55,15 @@ last update: 2018.2.1
 
 ---
 
-包的编译上传等
+待排
 
-* Run setup.py Task, chose sdist. The .tar.gz or .zip will appear under \dist path
+* 19012，优化日志功能，缩写line->ln, 增加可选是否记录线程的编号
+* 19014，unittest, 完善 test_common 部分
+* 19025，file 中剩余函数也加入 docstring 说明
+* 19026，构建统一单元测试，从 csv 中开始
+* 19027，file auto_add_file_ext() 原来实现方式有问题，删除该函数
+* 19028，修改完善 demo_file.py 中的例子；ok
+
+安装
+
+* 文档主题需要安装 pip install sphinx_rtd_theme
