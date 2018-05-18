@@ -15,12 +15,14 @@ import configparser
 import re
 import hashlib
 import os
+from collections import OrderedDict
 
 
 # 读入配置文件，返回根据配置文件内容生成的字典类型变量，减少文件读取次数
-# 2017.2.23 create by David.Yi, #19008
-# 2018.2.12 edit by David Yi, 增加返回内容，字典长度, #11014
-# 2018.4.18 #19015, 加入 docstring，完善文档说明
+# 2017.2.23 #19008 create by David Yi
+# 2018.2.12 #11014 edit by David Yi, 增加返回内容，字典长度,
+# 2018.4.18 #19015 加入 docstring，完善文档说明
+# 2018.5.14 v1.0.11 $19028 逻辑修改，更加严密
 def conf_as_dict(conf_filename):
 
     """
@@ -41,7 +43,6 @@ def conf_as_dict(conf_filename):
             # 定义配置文件名
             conf_filename = 'test_conf.ini'
             # 读取配置文件
-
             ds = conf_as_dict(conf_filename)
             # 显示是否成功，所有 dict 的内容，dict 的 key 数量
             print('flag:', ds[0])
@@ -63,7 +64,11 @@ def conf_as_dict(conf_filename):
             print('---')
 
     """
-    flag = True
+    flag = False
+
+    # 检查文件是否存在
+    if not(os.path.isfile(conf_filename)):
+        return flag,
 
     cf = configparser.ConfigParser()
 
@@ -72,12 +77,14 @@ def conf_as_dict(conf_filename):
         cf.read(conf_filename)
     except:
         flag = False
-        return flag
+        return flag,
 
     d = dict(cf._sections)
     for k in d:
         d[k] = dict(cf._defaults, **d[k])
         d[k].pop('__name__', None)
+
+    flag = True
 
     # 计算有多少 key
     count = len(d.keys())
@@ -210,34 +217,40 @@ class FishCache:
         return self.__cache[temp_key]
 
 
-# 2018.5.8 edit by David Yi, edit from Jia Chunying
+# 2018.5.8 edit by David Yi, edit from Jia Chunying，#19026
 class GetMD5(object):
     """
-    封装了 MD5 计算的类，可以计算普通字符串和一般的文件，对于大的文件（比如几兆以上）也可以快速计算
+    封装了 MD5 计算的类，可以计算普通字符串和一般的文件，对于大文件采取逐步读入的方式，也可以快速计算
 
     举例如下::
 
         def demo_common_md5():
             print('--- md5 demo ---')
-            print('string md5:', GetMD5.str('hello world!'))
+            print('string md5:', GetMD5.string('hello world!'))
             print('file md5:', GetMD5.file(get_abs_filename_with_sub_path('test_conf', 'test_conf.ini')[1]))
             print('big file md5:', GetMD5.big_file(get_abs_filename_with_sub_path('test_conf', 'test_conf.ini')[1]))
             print('---')
 
+    执行结果::
+
+        string md5: fc3ff98e8c6a0d3087d515c0473f8677
+        file md5: fb7528c9778b2377e30b0f7e4c26fef0
+        big file md5: fb7528c9778b2377e30b0f7e4c26fef0
+
     """
 
     @staticmethod
-    def str(str):
+    def string(s):
         """
         获取一个字符串的MD5值
 
         :param:
             * (string) str 需要进行 hash 的字符串
         :return:
-            * (string) result 32位小写MD5值
+            * (string) result 32位小写 MD5 值
         """
         m = hashlib.md5()
-        m.update(str.encode('utf-8'))
+        m.update(s.encode('utf-8'))
         result = m.hexdigest()
         return result
 
@@ -249,7 +262,7 @@ class GetMD5(object):
         :param:
             * (string) filename 需要进行 hash 的文件名
         :return:
-            * (string) result 32位小写MD5值
+            * (string) result 32位小写 MD5 值
         """
         m = hashlib.md5()
         with open(filename, 'rb') as f:
@@ -265,12 +278,81 @@ class GetMD5(object):
         :param:
             * (string) filename 需要进行 hash 的大文件路径
         :return:
-            * (string) result 32位小写MD5值
+            * (string) result 32位小写 MD5 值
         """
+
         md5 = hashlib.md5()
         with open(filename, 'rb') as f:
             for chunk in iter(lambda: f.read(8192), b''):
                 md5.update(chunk)
 
-        result = md5.digest()
+        result = md5.hexdigest()
         return result
+
+
+# 2018.5.15 v1.0.11 original by Lu Jie, edit by David Yi, #19029
+def if_json_contain(left_json, right_json, op='strict'):
+    """
+    判断一个 json 是否包含另外一个 json 的 key，并且 value 相等；
+
+    :param:
+        * left_json: (dict) 需要判断的 json，我们称之为 left
+        * right_json: (dict) 需要判断的 json，我们称之为 right，目前是判断 left 是否包含在 right 中
+        * op: (string) 判断操作符，目前只有一种，默认为 strict，向后兼容
+    :returns:
+        * result: (bool) right json 包含 left json 的 key，并且 value 一样，返回 True，否则都返回 False
+
+    举例如下::
+
+        print('--- json contain demo ---')
+        json1 = {"id": "0001"}
+        json2 = {"id": "0001", "value": "File"}
+        print(if_json_contain(json1, json2))
+        print('---')
+
+    执行结果::
+
+        True
+
+    """
+
+    key_list = left_json.keys()
+
+    if op == 'strict':
+        for key in key_list:
+            if not right_json.get(key) == left_json.get(key):
+                return False
+        return True
+
+
+# 2018.3.8 edit by Xiang qinqin
+# 2018.5.15 edit by David Yi, #19030
+def splice_url_params(dic):
+    """
+    根据传入的键值对，拼接 url 后面 ? 的参数，比如 ?key1=value1&key2=value2
+
+    :param:
+        * dic: (dict) 参数键值对
+    :returns:
+        * result: (string) 拼接好的参数
+
+    举例如下::
+
+        dic1 = {'key1': 'value1', 'key2': 'value2'}
+        print(splice_url_params(dic1))
+
+    执行结果::
+
+        ?key1=value1&key2=value2
+
+    """
+
+    od = OrderedDict(sorted(dic.items()))
+
+    url = '?'
+    for key, value in od.items():
+        temp_str = key + '=' + value
+        url = url + temp_str + '&'
+    # 去掉最后一个&字符
+    url = url[:len(url) - 1]
+    return url

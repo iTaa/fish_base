@@ -12,7 +12,6 @@ def demo_common_config():
     # 定义配置文件名
     conf_filename = 'test_conf.ini'
     # 读取配置文件
-
     ds = conf_as_dict(conf_filename)
 
     # 显示是否成功，所有 dict 的内容，dict 的 key 数量
@@ -38,9 +37,18 @@ def demo_common_config():
 # 2018.5.10
 def demo_common_md5():
     print('--- md5 demo ---')
-    print('string md5:', GetMD5.str('hello world!'))
+    print('string md5:', GetMD5.string('hello world!'))
     print('file md5:', GetMD5.file(get_abs_filename_with_sub_path('test_conf', 'test_conf.ini')[1]))
     print('big file md5:', GetMD5.big_file(get_abs_filename_with_sub_path('test_conf', 'test_conf.ini')[1]))
+    print('---')
+
+
+# 2018.5.15
+def demo_json_contain():
+    print('--- json contain demo ---')
+    json1 = {"id": "0001"}
+    json2 = {"id": "0001", "value": "File"}
+    print(if_json_contain(json1, json2))
     print('---')
 
 
@@ -80,3 +88,8 @@ if __name__ == '__main__':
     demo_common_config()
 
     demo_common_md5()
+
+    demo_json_contain()
+
+    dic1 = {'key1': 'value1', 'key2': 'value2'}
+    print(splice_url_params(dic1))

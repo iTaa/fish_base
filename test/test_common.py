@@ -1,89 +1,82 @@
 # fish_common.py 单元测试
-# 2017.5.23 create by Leo
+# 2018.5.15 create by David Yi
 
+import pytest
+import sys
+sys.path.append('../fish_base')
 from fish_base.fish_common import *
-import unittest
 
 
-class test_if_any_elements_is_space(unittest.TestCase):
+# 2018.5.14 v1.0.11 #19027 create by David Yi, 开始进行单元测试
+class TestFishCommon(object):
 
-    def setUp(self):
-        self.empty = ' '
-        self.cotain_space = 'Hello World'
-        self.cotain_none = [None, 'Hello', 'World']
-        self.normal = 'HelloWorld'
-        self.not_string = None
+    # 测试 conf_as_dict() 通过的 tc
+    def test_config_dict_01(self):
+        # 定义配置文件名
+        conf_filename = './test/test_conf.ini'
 
-    def test_empty_string(self):
-        self.assertEquals(if_any_elements_is_space(self.empty), True)
+        # 读取配置文件
+        ds = conf_as_dict(conf_filename)
+        d = ds[1]
 
-    def test_contain_space_string(self):
-        self.assertEquals(if_any_elements_is_space(self.cotain_space), True)
+        # 返回结果
+        assert ds[0] is True
+        # 返回长度
+        assert ds[2] == 7
+        # 某个 section 下面某个 key 的 value
+        assert d['show_opt']['short_opt'] == 'b:d:v:p:f:'
 
-    def test_contain_none_string(self):
-        self.assertEquals(if_any_elements_is_space(self.cotain_none), True)
+    # 测试 conf_as_dict() 通不过的 tc
+    def test_config_dict_02(self):
+        # 定义配置文件名
+        conf_filename = './test/test_conf1.ini'
 
-    def test_normal_string(self):
-        self.assertEquals(if_any_elements_is_space(self.normal), False)
+        # 读取配置文件
+        ds = conf_as_dict(conf_filename)
 
-    def test_not_string(self):
-        with self.assertRaises(TypeError):
-            if_any_elements_is_space(self.not_string)
+        # 返回结果
+        assert ds[0] is False
 
+        # 应该读不到返回的 dict 内容
+        with pytest.raises(IndexError):
+            d = ds[1]
 
-class test_if_any_elements_is_special(unittest.TestCase):
+    # 测试 GetMD5() 通过的 tc
+    def test_md5_01(self):
 
-    def setUp(self):
-        self.contain_special_elements = 'Hello$World'
-        self.normal = 'HelloWorld'
-        self.not_string = None
+        assert GetMD5.string('hello world!') == 'fc3ff98e8c6a0d3087d515c0473f8677'
+        assert GetMD5.file('./test/test_conf.ini') == 'fb7528c9778b2377e30b0f7e4c26fef0'
+        assert GetMD5.big_file('./test/test_conf.ini') == 'fb7528c9778b2377e30b0f7e4c26fef0'
 
-    def test_contain_special_elements(self):
-        self.assertEquals(if_any_elements_is_special(self.contain_special_elements), False)
+    # 测试 GetMD5() 通不过的 tc
+    def test_md5_02(self):
 
-    def test_normal_string(self):
-        self.assertEquals(if_any_elements_is_special(self.normal), True)
+        assert GetMD5.string('hello world') != 'fc3ff98e8c6a0d3087d515c0473f8677'
 
-    def test_not_string(self):
-        with self.assertRaises(TypeError):
-            if_any_elements_is_space(self.not_string)
+        with pytest.raises(FileNotFoundError):
+            GetMD5.file('./test/test_conf1.ini')
 
+        assert GetMD5.file('./test/test_conf.ini') != 'bb7528c9778b2377e30b0f7e4c26fef0'
 
-class test_if_any_elements_is_number(unittest.TestCase):
+    # 测试 if_json_contain() 通过和不通过 tc
+    def test_json_contain_01(self):
 
-    def setUp(self):
-        self.contain_number_elements = '123'
-        self.normal = 'HelloWorld'
-        self.not_string = None
+        json01 = {"id": "0001"}
+        json02 = {"id": "0001", "value": "Desk"}
+        json10 = {"id": "0001", "value": "File"}
+        json11 = {"id": "0002", "value": "File"}
+        json12 = {"id1": "0001", "value": "File"}
 
-    def test_contain_number_elements(self):
-        self.assertEquals(if_any_elements_is_number(self.contain_number_elements), True)
+        assert if_json_contain(json01, json10) is True
+        assert if_json_contain(json02, json10) is False
+        assert if_json_contain(json01, json11) is False
+        assert if_json_contain(json01, json12) is False
 
-    def test_normal_string(self):
-        self.assertEquals(if_any_elements_is_number(self.normal), False)
+    # 测试 test_splice_url_params() 通过和不通过 tc
+    def test_splice_url_params_01(self):
 
-    def test_not_string(self):
-        with self.assertRaises(TypeError):
-            if_any_elements_is_number(self.not_string)
+        dic01 = {'key1': 'value1', 'key2': 'value2'}
+        dic02 = {'key1': '1111', 'key2': 'value2'}
 
-
-class test_if_any_elements_is_letter(unittest.TestCase):
-
-    def setUp(self):
-        self.contain_letter_elements = 'HelloWorld'
-        self.normal = '738&3892*%'
-        self.not_string = None
-
-    def test_contain_letter_elements(self):
-        self.assertEquals(if_any_elements_is_letter(self.contain_letter_elements), True)
-
-    def test_normal_string(self):
-        self.assertEquals(if_any_elements_is_letter(self.normal), False)
-
-    def test_not_string(self):
-        with self.assertRaises(TypeError):
-            if_any_elements_is_letter(self.not_string)
-
-
-if __name__ == '__main__':
-    unittest.main()
+        assert splice_url_params(dic01) == '?key1=value1&key2=value2'
+        assert splice_url_params(dic02) != '?key1=value1&key2=value2'
