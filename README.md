@@ -1,4 +1,4 @@
-![build](https://travis-ci.org/iTaa/fish_base.svg?branch=master) [![Coverage Status](https://coveralls.io/repos/github/iTaa/fish_base/badge.svg?branch=master)](https://coveralls.io/github/iTaa/fish_base?branch=master) [![Build status](https://ci.appveyor.com/api/projects/status/m3c7b6rsamkswiru?svg=true)](https://ci.appveyor.com/project/iTaa/fish-base)
+[![Build Status](https://travis-ci.org/iTaa/fish_base.svg?branch=master)](https://travis-ci.org/iTaa/fish_base) [![Coverage Status](https://coveralls.io/repos/github/iTaa/fish_base/badge.svg?branch=master)](https://coveralls.io/github/iTaa/fish_base?branch=master) [![Build status](https://ci.appveyor.com/api/projects/status/m3c7b6rsamkswiru?svg=true)](https://ci.appveyor.com/project/iTaa/fish-base)
 
 ## fish_base 简介
 
