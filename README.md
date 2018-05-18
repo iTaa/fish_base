@@ -1,4 +1,4 @@
-![build](https://travis-ci.org/iTaa/fish_base.svg?branch=master)
+![build](https://travis-ci.org/iTaa/fish_base.svg?branch=master) [![Coverage Status](https://coveralls.io/repos/github/iTaa/fish_base/badge.svg?branch=master)](https://coveralls.io/github/iTaa/fish_base?branch=master)
 
 ## fish_base 简介
 
