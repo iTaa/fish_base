@@ -18,4 +18,4 @@ install:
   - "%PYTHON%/Scripts/pip.exe install -U -r requirements.txt"
 
 test_script:
-  - "coverage run test/test_common.py"
+  - "%PYTHON%/Scripts/py.test.exe -sv"
