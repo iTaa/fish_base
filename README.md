@@ -1,4 +1,4 @@
-![build](https://api.travis-ci.org/chinapnr/fish_base.svg?branch=v1.0.11_develop)
+![build](https://api.travis-ci.org/itaa/fish_base.svg?branch=v1.0.11_develop)
 
 ## fish_base 简介
 
