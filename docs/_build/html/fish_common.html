@@ -87,10 +87,10 @@
 <li class="toctree-l1"><a class="reference internal" href="change_log.html">更新记录</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">fish_common</span></code> 基本函数包</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fish_file.html"><code class="docutils literal notranslate"><span class="pre">fish_file</span></code> 文件处理函数包</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fish_csv.html"><code class="docutils literal notranslate"><span class="pre">fish_csv</span></code> csv 函数包</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fish_logger.html"><code class="docutils literal notranslate"><span class="pre">fish_logger</span></code> 日志记录函数包</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">fish_common</span></code> 基本函数包</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fish_file.html"><code class="docutils literal"><span class="pre">fish_file</span></code> 文件处理函数包</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fish_csv.html"><code class="docutils literal"><span class="pre">fish_csv</span></code> csv 函数包</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fish_logger.html"><code class="docutils literal"><span class="pre">fish_logger</span></code> 日志记录函数包</a></li>
 </ul>
 
             
@@ -136,7 +136,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li><code class="docutils literal notranslate"><span class="pre">fish_common</span></code> 基本函数包</li>
+      <li><code class="docutils literal"><span class="pre">fish_common</span></code> 基本函数包</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -156,14 +156,14 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-fish_common">
-<span id="fish-common"></span><h1><code class="docutils literal notranslate"><span class="pre">fish_common</span></code> 基本函数包<a class="headerlink" href="#module-fish_common" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">fish_common</span></code> 包含的是最通用的一些函数和类。</p>
+<span id="fish-common"></span><h1><code class="docutils literal"><span class="pre">fish_common</span></code> 基本函数包<a class="headerlink" href="#module-fish_common" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">fish_common</span></code> 包含的是最通用的一些函数和类。</p>
 <dl class="class">
 <dt id="fish_common.GetMD5">
 <em class="property">class </em><code class="descclassname">fish_common.</code><code class="descname">GetMD5</code><a class="headerlink" href="#fish_common.GetMD5" title="Permalink to this definition">¶</a></dt>
 <dd><p>封装了 MD5 计算的类，可以计算普通字符串和一般的文件，对于大文件采取逐步读入的方式，也可以快速计算</p>
 <p>举例如下:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">demo_common_md5</span><span class="p">():</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">demo_common_md5</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--- md5 demo ---&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;string md5:&#39;</span><span class="p">,</span> <span class="n">GetMD5</span><span class="o">.</span><span class="n">string</span><span class="p">(</span><span class="s1">&#39;hello world!&#39;</span><span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;file md5:&#39;</span><span class="p">,</span> <span class="n">GetMD5</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="n">get_abs_filename_with_sub_path</span><span class="p">(</span><span class="s1">&#39;test_conf&#39;</span><span class="p">,</span> <span class="s1">&#39;test_conf.ini&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
@@ -172,14 +172,14 @@
 </pre></div>
 </div>
 <p>执行结果:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="n">md5</span><span class="p">:</span> <span class="n">fc3ff98e8c6a0d3087d515c0473f8677</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="n">md5</span><span class="p">:</span> <span class="n">fc3ff98e8c6a0d3087d515c0473f8677</span>
 <span class="n">file</span> <span class="n">md5</span><span class="p">:</span> <span class="n">fb7528c9778b2377e30b0f7e4c26fef0</span>
 <span class="n">big</span> <span class="n">file</span> <span class="n">md5</span><span class="p">:</span> <span class="n">fb7528c9778b2377e30b0f7e4c26fef0</span>
 </pre></div>
 </div>
 <dl class="staticmethod">
 <dt id="fish_common.GetMD5.big_file">
-<em class="property">static </em><code class="descname">big_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fish_common.GetMD5.big_file" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">big_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#fish_common.GetMD5.big_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>获取一个大文件的 MD5 值</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -202,7 +202,7 @@
 
 <dl class="staticmethod">
 <dt id="fish_common.GetMD5.file">
-<em class="property">static </em><code class="descname">file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fish_common.GetMD5.file" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#fish_common.GetMD5.file" title="Permalink to this definition">¶</a></dt>
 <dd><p>获取一个文件的 MD5 值</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -225,7 +225,7 @@
 
 <dl class="staticmethod">
 <dt id="fish_common.GetMD5.string">
-<em class="property">static </em><code class="descname">string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fish_common.GetMD5.string" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">string</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#fish_common.GetMD5.string" title="Permalink to this definition">¶</a></dt>
 <dd><p>获取一个字符串的MD5值</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -288,7 +288,7 @@
 </tbody>
 </table>
 <p>举例如下:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">demo_common_config</span><span class="p">():</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">demo_common_config</span><span class="p">():</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--- conf_as_dict demo---&#39;</span><span class="p">)</span>
     <span class="c1"># 定义配置文件名</span>
@@ -341,7 +341,7 @@
 </tbody>
 </table>
 <p>举例如下:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--- json contain demo ---&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--- json contain demo ---&#39;</span><span class="p">)</span>
 <span class="n">json1</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;0001&quot;</span><span class="p">}</span>
 <span class="n">json2</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;0001&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;File&quot;</span><span class="p">}</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">if_json_contain</span><span class="p">(</span><span class="n">json1</span><span class="p">,</span> <span class="n">json2</span><span class="p">))</span>
@@ -349,7 +349,7 @@
 </pre></div>
 </div>
 <p>执行结果:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kc">True</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kc">True</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -376,12 +376,12 @@
 </tbody>
 </table>
 <p>举例如下:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dic1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;key1&#39;</span><span class="p">:</span> <span class="s1">&#39;value1&#39;</span><span class="p">,</span> <span class="s1">&#39;key2&#39;</span><span class="p">:</span> <span class="s1">&#39;value2&#39;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dic1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;key1&#39;</span><span class="p">:</span> <span class="s1">&#39;value1&#39;</span><span class="p">,</span> <span class="s1">&#39;key2&#39;</span><span class="p">:</span> <span class="s1">&#39;value2&#39;</span><span class="p">}</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">splice_url_params</span><span class="p">(</span><span class="n">dic1</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>执行结果:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>?key1=value1&amp;key2=value2
+<div class="highlight-default"><div class="highlight"><pre><span></span>?key1=value1&amp;key2=value2
 </pre></div>
 </div>
 </dd></dl>
@@ -451,9 +451,7 @@
 
   <script type="text/javascript">
       jQuery(function () {
-          
-          SphinxRtdTheme.Navigation.enableSticky();
-          
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script> 
 
