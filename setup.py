@@ -1,20 +1,21 @@
 # from distutils.core import setup
 from setuptools import setup
+from fishbase import __version__
 
 setup(
-    name='fish_base',
-    version='1.0.11',
+    name='fishbase',
+    version=__version__,
     install_requires=['python-dateutil'],
 
-    url='https://github.com/chinapnr/fish_base',
+    url='https://github.com/chinapnr/fishbase',
     license='MIT',
     author='David Yi',
     author_email='wingfish@gmail.com',
     description='some useful functions for python',
 
-    packages=['fish_base'],
+    packages=['fishbase'],
 
-    # packages=['fish_base', 'fish_base.naive_bayes'],
+    # packages=['fishbase', 'fishbase.naive_bayes'],
     # package_data={'': ['stopwords.txt']},
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -23,7 +24,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
 
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
@@ -34,9 +35,11 @@ setup(
 
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python'
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ]
 
 )

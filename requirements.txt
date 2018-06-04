@@ -1,4 +1,4 @@
 python-dateutil
-pytest
 coverage
+pytest-cov
 coveralls

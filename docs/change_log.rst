@@ -1,7 +1,23 @@
 更新记录
 ===========================
 
-v1.0.11
+2018.5.30 v1.0.13
+---------------------------
+
+* 19037, common and system, function ``check_platform()`` move to fish_system 中，rename to :meth:`fish_system.get_platform`
+* 19038, common, add function :meth:`fish_common.get_uuid`, edit ``fish_common.get_time_uuid``, add doc and unittest
+* 19039, logger, edit function :meth:`fish_logger.set_log_file()` by ``class SafeFileHandler()``, prevent the multi process delete log file error
+* 19040, file, edit function :meth:`fish_file.get_abs_filename_with_sub_path`, thanks to Wu Yanan
+* 19041, file, delete function ``check_kind_path_file()``
+* 19042, file, edit function :meth:`fish_file.check_sub_path_create`, optimize, doc and unittest
+* 19043, common, edit function :meth:`fish_common.sorted_list_from_dict()`, optimize, doc and unittest
+
+2018.5.21 v1.0.12
+---------------------------
+
+* 19035, rename package 'fish_base' to 'fishbase'
+
+2018.5.18 v1.0.11
 ---------------------------
 
 * 19011, 从19011开始编号，ok
@@ -21,9 +37,13 @@ v1.0.11
 * 19028, common, ``conf_as_dict()`` 逻辑修改，更加严密，ok
 * 19029, common, 增加 ``json_contained()`` 函数，判断两个 json 是否有包含关系，ok
 * 19030, common, 增加 ``splice_url_params()`` 函数；ok
+* 19031, 项目，增加 requirements.txt; ok
+* 19032, 项目，增加 .travis.yml, 支持持续集成测试; ok
+* 19033, 项目，增加对于 coveralls.io 的支持，监视 ut 的覆盖率; 本地 python 2.7.15 测试通过; ok
+* 19034, 项目，修改 __init__.py 和 setup.py 中对于 __version__ 的用法; ok
 
 
-v1.0.10
+2018.3.20 v1.0.10
 ---------------------------
 
 * 19006, 增加，``get_time_uuid()``, 获得带时间戳的流水号；ok

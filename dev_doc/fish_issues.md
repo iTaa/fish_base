@@ -1,6 +1,24 @@
 ##fish_common 特性列表
 
-last update: 2018.5.15
+last update: 2018.5.26
+
+#### v1.0.13
+
+* 19037, common and system, function check_platform() move to fish_system，rename to get_platform(); ok
+* 19038, common, add function get_uuid(), edit get_time_uuid(), add doc and unittest; ok
+* 19039, logger, edit function set_log_file() by class SafeFileHandler(), prevent the multi process delete log file; ok
+* 19040, file, edit function get_abs_filename_with_sub_path(), suggested by Wu Yanan; ok
+* 19041, file, delete function check_kind_path_file(), it's feature include in get_abs_filename_with_sub_path(); ok
+* 19042, file, edit function check_sub_path_create(), edit docstring, add unittest; ok
+* 19043, common, edit function sorted_list_from_dict(), optimize, doc and unittest; ok
+
+---
+
+#### v1.0.12
+
+* 19036, edit fish_base to fishbase
+
+---
 
 #### v1.0.11
 
@@ -26,12 +44,15 @@ Click it and 'Edit Configurations' (or alternatively use the menu item Run->Edit
 In the 'Defaults' section in the left pane there is a 'py.test' item which I think is what you want.
 配置一个专门的测试配置项，运行即可
 
-fish_common 目前测试覆盖率 62%
+fish_common 目前测试覆盖率 65%
 
 * 19029, common, 增加 ag bot 所需要的 json_contained() 函数，判断两个 json 是否有包含关系；ok
 * 19030, common, 增加 splice_url_params() 函数；ok
-* 19031, 项目增加 requirements.txt; ok
-* 19032, 项目增加 .travis.yml, 准备持续集成测试; ok
+* 19031, 项目，增加 requirements.txt; ok
+* 19032, 项目，增加 .travis.yml, 准备持续集成测试; ok
+* 19033, 项目，增加对于 coveralls.io 的支持，监视覆盖率; 本地 python 2.7.15 测试通过; ok
+* 19034, 项目，修改 `__init__.py` 和 setup.py 中对于 `__version__` 的用法; ok
+* 19035, common, Add SingleTon() demo and unittest; 
 
 ---
 
@@ -69,15 +90,6 @@ fish_common 目前测试覆盖率 62%
 
 ---
 
-待排
-
-* 19012，优化日志功能，缩写line->ln, 增加可选是否记录线程的编号
-* 19014，unittest, 完善 test_common 部分
-* 19025，file 中剩余函数也加入 docstring 说明
-* 19026，构建统一单元测试，从 csv 中开始
-* 19027，file auto_add_file_ext() 原来实现方式有问题，删除该函数
-* 19028，修改完善 demo_file.py 中的例子；ok
-
-安装
+补充
 
 * 文档主题需要安装 pip install sphinx_rtd_theme

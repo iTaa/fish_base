@@ -3,6 +3,7 @@ python:
   - "2.7"
   - "3.5"
   - "3.6"
+  - "3.7-dev"
 # PyPy versions
   - "pypy3.5"
 # command to install dependencies
@@ -12,5 +13,5 @@ install:
 script:
   - pytest
 after_success:
-  - coverage run test/test_common.py
+  - pytest --cov=fishbase test/
   - coveralls
