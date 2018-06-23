@@ -1,6 +1,6 @@
 ![build](https://api.travis-ci.org/chinapnr/fishbase.svg?branch=master)
 ![doc](https://readthedocs.org/projects/fishbase/badge/?version=latest)
-[![Coverage Status](https://coveralls.io/repos/github/chinapnr/fishbase/badge.svg?branch=master)](https://coveralls.io/github/chinapnr/fishbase?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/iTaa/fish_base/badge.svg?branch=master)](https://coveralls.io/github/iTaa/fish_base?branch=master)
 
 ## fishbase 简介
 
