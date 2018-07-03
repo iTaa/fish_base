@@ -4,7 +4,7 @@
 2018.5.30 v1.0.13
 ---------------------------
 
-`#75 <https://github.com/chinapnr/fishbase/issues/76>`_
+
 * #9037, common and system, function ``check_platform()`` move to fish_system 中，rename to :meth:`fish_system.get_platform`;
 * 19038, common, add function :meth:`fish_common.get_uuid`, edit ``fish_common.get_time_uuid``, add doc and unittest;
 * 19039, logger, edit function :meth:`fish_logger.set_log_file()` by ``class SafeFileHandler()``, prevent the multi process delete log file error;
